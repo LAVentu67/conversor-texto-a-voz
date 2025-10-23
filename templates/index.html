@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>LGA - Conversor de Texto a Voz</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* --- ESTILOS GENERALES Y PALETA DE COLORES --- */
+        :root {
+            --color-background: #f4f7f9; /* Gris muy claro para el fondo */
+            --color-surface: #ffffff;    /* Blanco para el contenedor principal */
+            --color-text-primary: #1a1a1a; /* Negro suave para textos principales */
+            --color-text-secondary: #666666;/* Gris para textos secundarios y placeholders */
+            --color-border: #e0e0e0;      /* Gris claro para bordes */
+            --color-primary: #2c3e50;     /* Gris oscuro/azulado para el botón */
+            --color-primary-hover: #34495e;/* Tono más claro para el hover del botón */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            width: 100%;
+            max-width: 550px;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px; /* Bordes menos pronunciados */
+            padding: 40px;
+            /* Sombra sutil para un efecto de elevación profesional */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TÍTULO --- */
+        h2 {
+            font-weight: 600;
+            font-size: 1.7rem; /* Ligeramente más pequeño para formalidad */
+            margin-top: 0;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--color-text-primary);
+        }
+        
+        h2 .fa-microphone-lines {
+            color: var(--color-primary);
+        }
+
+        /* --- ÁREA DE TEXTO --- */
+        textarea {
+            width: 100%;
+            height: 130px;
+            background-color: #fcfcfc;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+            resize: vertical; /* Permite redimensionar verticalmente */
+            color: var(--color-text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+
+        textarea::placeholder {
+            color: var(--color-text-secondary);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1); /* Sombra de foco sutil */
+        }
+
+        /* --- BOTÓN DE ACCIÓN --- */
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        /* --- SECCIÓN DE RESULTADOS --- */
+        .result-container {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid var(--color-border);
+            text-align: left;
+        }
+
+        .result-container h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+        }
+        
+        .result-container p {
+            background-color: var(--color-background); /* Fondo gris claro para diferenciar */
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            word-wrap: break-word;
+            color: var(--color-text-secondary);
+        }
+
+        /* --- REPRODUCTOR DE AUDIO --- */
+        audio {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>
+            <i class="fa-solid fa-microphone-lines"></i>
+            LGA - Conversor de Texto a Voz
+        </h2>
+        
+        <form method="POST">
+            <textarea name="texto" placeholder="Escribe tu texto aquí..." required></textarea>
+            <br>
+            <button type="submit">
+                <i class="fa-solid fa-play"></i>
+                Generar Audio
+            </button>
+        </form>
+        
+        {% if texto %}
+        <div class="result-container">
+            <h3>Texto Generado:</h3>
+            <p>{{ texto }}</p>
+            <audio controls autoplay>
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

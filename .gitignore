@@ -1,0 +1,6 @@
+# Ignorar la carpeta donde se guardan los audios
+/audio/
+
+# Ignorar carpetas de caché de Python
+__pycache__/
+*.pyc
